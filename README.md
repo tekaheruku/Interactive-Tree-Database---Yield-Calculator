@@ -43,9 +43,7 @@ NuGet packages or database server.
 
    | Username | Password |
    |---|---|
-   | `admin` | `Admin@123` |
-
-   You must choose a new password the first time you sign in.
+   | `admin` | `admin0102` |
 
 The built program is `Interactive Tree Database\Interactive Tree Database\bin\Debug\Interactive Tree Database.exe`.
 
