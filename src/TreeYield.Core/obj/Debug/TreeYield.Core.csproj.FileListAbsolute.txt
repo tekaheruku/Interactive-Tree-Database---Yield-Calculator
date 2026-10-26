@@ -1,0 +1,6 @@
+C:\Users\davev\Downloads\Interactive Tree Database & Yield Calculator\src\TreeYield.Core\bin\Debug\TreeYield.Core.xml
+C:\Users\davev\Downloads\Interactive Tree Database & Yield Calculator\src\TreeYield.Core\bin\Debug\TreeYield.Core.dll
+C:\Users\davev\Downloads\Interactive Tree Database & Yield Calculator\src\TreeYield.Core\bin\Debug\TreeYield.Core.pdb
+C:\Users\davev\Downloads\Interactive Tree Database & Yield Calculator\src\TreeYield.Core\obj\Debug\TreeYield.Core.csprojResolveAssemblyReference.cache
+C:\Users\davev\Downloads\Interactive Tree Database & Yield Calculator\src\TreeYield.Core\obj\Debug\TreeYield.Core.dll
+C:\Users\davev\Downloads\Interactive Tree Database & Yield Calculator\src\TreeYield.Core\obj\Debug\TreeYield.Core.pdb
