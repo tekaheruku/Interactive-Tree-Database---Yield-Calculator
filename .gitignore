@@ -1,0 +1,10 @@
+# Visual Studio build output and user files
+bin/
+obj/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+packages/
+TestResults/

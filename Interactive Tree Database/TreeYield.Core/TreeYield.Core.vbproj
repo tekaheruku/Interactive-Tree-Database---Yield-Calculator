@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4B7E2C91-5D3A-4F6B-9C1E-7A2D8E3F4B05}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>TreeYield.Core</RootNamespace>
+    <AssemblyName>TreeYield.Core</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Empty</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <LangVersion>14</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>TreeYield.Core.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>TreeYield.Core.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\AccessConnectionFactory.vb" />
+    <Compile Include="Data\AccessErrorTranslator.vb" />
+    <Compile Include="Data\AuditLogRepository.vb" />
+    <Compile Include="Data\CategoryRepository.vb" />
+    <Compile Include="Data\DataAccessException.vb" />
+    <Compile Include="Data\DatabaseFileLocator.vb" />
+    <Compile Include="Data\DatabaseInitializer.vb" />
+    <Compile Include="Data\DuplicateRecordException.vb" />
+    <Compile Include="Data\RepositoryBase.vb" />
+    <Compile Include="Data\ScenarioRepository.vb" />
+    <Compile Include="Data\SeedData.vb" />
+    <Compile Include="Data\SpeciesRepository.vb" />
+    <Compile Include="Data\SqlScriptRunner.vb" />
+    <Compile Include="Data\SqlText.vb" />
+    <Compile Include="Data\UserRepository.vb" />
+    <Compile Include="Models\AppUser.vb" />
+    <Compile Include="Models\AuditEntry.vb" />
+    <Compile Include="Models\Category.vb" />
+    <Compile Include="Models\HarvestType.vb" />
+    <Compile Include="Models\LoginResult.vb" />
+    <Compile Include="Models\ProjectionYear.vb" />
+    <Compile Include="Models\Scenario.vb" />
+    <Compile Include="Models\TreeSpecies.vb" />
+    <Compile Include="Models\YieldProjection.vb" />
+    <Compile Include="Models\YieldResult.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Services\AuditActions.vb" />
+    <Compile Include="Services\AuthService.vb" />
+    <Compile Include="Services\CsvExporter.vb" />
+    <Compile Include="Services\Formatters.vb" />
+    <Compile Include="Services\PasswordHasher.vb" />
+    <Compile Include="Services\PasswordPolicy.vb" />
+    <Compile Include="Services\ScenarioService.vb" />
+    <Compile Include="Services\SpeciesService.vb" />
+    <Compile Include="Services\SpeciesValidator.vb" />
+    <Compile Include="Services\ValidationException.vb" />
+    <Compile Include="Services\ValidationResult.vb" />
+    <Compile Include="Services\YieldCalculator.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Scripts\Schema.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

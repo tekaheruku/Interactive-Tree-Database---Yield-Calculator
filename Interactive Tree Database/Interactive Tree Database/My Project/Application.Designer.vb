@@ -32,7 +32,7 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()> _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Interactive_Tree_Database.Form1
+            Me.MainForm = Global.TreeYield.WinForms.MainForm
         End Sub
     End Class
 End Namespace

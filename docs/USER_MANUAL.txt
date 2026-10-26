@@ -1,0 +1,705 @@
+﻿================================================================================================
+INTERACTIVE TREE DATABASE & YIELD CALCULATOR
+USER MANUAL
+Version 1.0  -  October 2026
+================================================================================================
+
+Course:         BSCS Final Project - Human-Computer Interaction
+Prepared by:    [Group Name / Members]
+Submitted to:   [Instructor]
+Software:       Visual Basic .NET Windows Forms (.NET Framework 4.5.2) + Microsoft Access
+                database (.mdb), Visual Studio 2015 solution
+
+CONTENTS
+  1. Introduction
+      1.1 What the program does
+      1.2 Who should read which part
+      1.3 About the figures
+      1.4 Conventions used in this manual
+  2. System requirements
+  3. Installing and starting the program
+      3.1 The project folder
+      3.2 Start the program from Visual Studio
+      3.3 Start the program without Visual Studio
+      3.4 The first start
+  4. The main window
+  5. Calculating yield and sales
+  6. Browsing and inspecting species records
+      6.1 Search
+      6.2 Sort and select
+      6.3 Inspect a record
+  7. Multi-year projection
+  8. Saving and loading scenarios
+      8.1 Save a scenario
+      8.2 Load or delete a scenario
+  9. Exporting and printing
+      9.1 Export to CSV (Excel)
+      9.2 Print a report
+  10. Administrator guide
+      10.1 Sign in
+      10.2 First sign-in: change the default password
+      10.3 The Manage Species Records window
+      10.4 Add a species
+      10.5 Edit a species
+      10.6 Delete a species
+      10.7 Audit log
+      10.8 Change password, reset sample data, sign out
+  11. Keyboard shortcuts
+  12. How the calculations work
+      12.1 Yearly yield and gross sales
+      12.2 Projection for annual species
+      12.3 Projection for rotation (timber) species
+      12.4 What the program does not include
+  13. The database file (Microsoft Access)
+      13.1 Open it in Microsoft Access
+      13.2 Rules kept by the database
+      13.3 Back up, restore and start fresh
+  14. Troubleshooting and frequently asked questions
+  15. Glossary
+  Appendix A. Sample species
+  Appendix B. Test cases
+
+
+================================================================================================
+1. INTRODUCTION
+================================================================================================
+
+1.1 What the program does
+-------------------------
+The Interactive Tree Database & Yield Calculator is a desktop program for farmers, agriculture
+students, extension workers and planners. It keeps a database of tree species and, for any
+species and number of trees, calculates the expected yearly harvest and the estimated gross
+sales in Philippine pesos.
+
+With the program you can:
+
+  - filter the species by type: All Species, Fruit-Bearing or Non-Fruit-Bearing;
+  - choose a species and a tree count and see the annual yield and gross sales immediately;
+  - search, sort and inspect every species record;
+  - see a year-by-year projection (1 to 30 years) with a chart and a table;
+  - save calculations as scenarios and load them again later;
+  - export a calculation to a CSV file for Excel, or print a one-page report;
+  - as an administrator, add, edit and delete species records and review an audit log.
+
+1.2 Who should read which part
+------------------------------
+  Reader                      | Sections
+  ----------------------------+------------------------------------------------------------------
+  Every user                  | 2 to 9, 11 and 14
+  Administrator (keeps the    | 10 and 13, plus the sections above
+  records up to date)         |
+  Anyone who wants to check   | 12. How the calculations work
+  the numbers                 |
+
+1.3 About the figures
+---------------------
+  | NOTE: The 22 sample species and their yields and prices are planning estimates prepared
+  | for this school project. Real yields depend on variety, tree age, spacing, soil, weather
+  | and care, and farm-gate prices change with the season and the market. Check current
+  | figures with the Department of Agriculture (DA), the Philippine Statistics Authority (PSA)
+  | or local buyers. An administrator can update any record (Section 10).
+
+1.4 Conventions used in this manual
+-----------------------------------
+  - Names of buttons, labels and windows are written in bold, for example Save Scenario.
+  - Keys and shortcuts look like Ctrl+S; file and folder names look like TreeYieldDb.mdb.
+  - Amounts are shown in the program with the peso sign; this manual writes them as PHP.
+
+
+================================================================================================
+2. SYSTEM REQUIREMENTS
+================================================================================================
+
+  Item                          | Requirement
+  ------------------------------+----------------------------------------------------------------
+  Operating system              | Windows 7 SP1, 8.1, 10 or 11 (tested on Windows 11)
+  .NET Framework                | 4.5.2 or later (already included in Windows 10 and 11)
+  Database                      | Nothing to install. The data is kept in a Microsoft Access file
+                                | (TreeYieldDb.mdb) inside the project and is read with the
+                                | Microsoft Jet 4.0 OLE DB provider, which is part of Windows.
+  Microsoft Access (optional)   | Any version from Access 2000 on, to open and browse the
+                                | database file (Section 13)
+  Screen                        | 1024 x 768 or larger; 1280 x 800 or larger recommended
+  Printer (optional)            | Any printer, or the built-in "Microsoft Print to PDF"
+  To open or change the code    | Visual Studio 2015 (any edition) or newer
+
+
+================================================================================================
+3. INSTALLING AND STARTING THE PROGRAM
+================================================================================================
+
+3.1 The project folder
+----------------------
+Copy the whole project folder to the PC (for example to the Desktop or Documents). The parts you
+need are:
+
+  File or folder                           | What it is
+  -----------------------------------------+-----------------------------------------------------
+  Interactive Tree Database\Interactive    | The Visual Studio solution. Open this file.
+  Tree Database.sln                        |
+  Interactive Tree Database\Interactive    | The Microsoft Access database with all records.
+  Tree Database\Database\TreeYieldDb.mdb   |
+  docs\                                    | This manual, the test cases and the source-code soft
+                                           | copy.
+
+3.2 Start the program from Visual Studio
+----------------------------------------
+  1. Open the file Interactive Tree Database\Interactive Tree Database.sln in Visual Studio
+     2015.
+  2. Press F5 (or click Start). The project Interactive Tree Database starts.
+
+3.3 Start the program without Visual Studio
+-------------------------------------------
+Double-click Interactive Tree Database.exe in the folder Interactive Tree Database\Interactive
+Tree Database\bin\Debug (or bin\Release). Keep the files TreeYield.Core.dll and Interactive Tree
+Database.exe.config in the same folder. The program finds the database in the project folder
+automatically.
+
+To use the program on another PC without the project, copy the bin\Debug folder and put a folder
+named Database with TreeYieldDb.mdb inside it, next to the .exe. (If no database is found, the
+program creates a new one.)
+
+3.4 The first start
+-------------------
+When the program starts, the status bar at the bottom shows "Opening the database..." and then
+"Ready". If the file Database\TreeYieldDb.mdb does not exist yet, the program creates it by
+itself with all tables, relationships and 22 sample species. This takes only a few seconds. The
+status bar shows the name of the database file; point at it to see the full path.
+
+If the database cannot be opened, the window Database Not Available explains how to fix it (see
+Section 14).
+
+
+================================================================================================
+4. THE MAIN WINDOW
+================================================================================================
+
+  [Screenshot: docs\screenshots\01-main-window-annotated.png - Figure 1. The main window with Carabao Mango and 25 trees selected (numbers explained below)]
+
+  #       | Part                        | What it is for
+  --------+-----------------------------+--------------------------------------------------------
+  1       | Action buttons (top right)  | Save Scenario, Export CSV, Print Report, About and
+          |                             | Admin Login.
+  2       | Category chips              | All Species, Fruit-Bearing, Non-Fruit-Bearing. The blue
+          |                             | chip is the active filter.
+  3       | Target Crop / Tree Species  | Drop-down list of the species in the active category.
+  4       | Tree Count                  | Slider (1 to 1,000) and number box (1 to 100,000).
+  5       | Result cards                | Active Species, Annual Yield and Estimated Gross Sales
+          |                             | (green).
+  6       | Section chips               | Species Records, 10-Year Projection and Saved
+          |                             | Scenarios.
+  7       | Content area                | Shows the section chosen with the section chips.
+  8       | Status bar                  | Messages, the database in use and who is signed in
+          |                             | ("Guest (read-only)" or the administrator).
+
+Point the mouse at a button to see a short explanation and its keyboard shortcut. The window can
+be resized or maximized; on small screens it opens maximized.
+
+
+================================================================================================
+5. CALCULATING YIELD AND SALES
+================================================================================================
+
+  1. (Optional) Click a category chip to narrow the list, for example Fruit-Bearing.
+  2. Choose the species in Target Crop / Tree Species.
+  3. Set the number of trees: drag the slider, click a point on it, or use the arrow keys; or
+     type a number from 1 to 100,000 in the box and press Enter.
+  4. Read the three result cards. They change immediately whenever you change the species or the
+     tree count.
+
+  Card                       | Meaning
+  ---------------------------+-------------------------------------------------------------------
+  Active Species             | The species being calculated, with its category and product.
+  Annual Yield               | Tree count x yield per tree per year, at full production (mature
+                             | trees).
+  Estimated Gross Sales      | Annual yield x farm-gate price per unit, in pesos, before any
+                             | costs.
+
+  Worked example:
+    25 Carabao Mango trees x 300 kg per tree = 7,500 kg per year
+    7,500 kg x PHP 80 per kg = PHP 600,000 per year
+
+  | NOTE: Timber trees (harvest type "Rotation", for example Mahogany or Gmelina) are cut only
+  | once, at rotation age. For them the cards show annualized figures - the average per year -
+  | and the caption tells you the one-time harvest value and the harvest year. Use the
+  | projection (Section 7) to see when the money actually comes in.
+
+Numbers outside the allowed range are corrected automatically: 0 becomes 1 and anything above
+100,000 becomes 100,000. Letters cannot be typed in the number box.
+
+
+================================================================================================
+6. BROWSING AND INSPECTING SPECIES RECORDS
+================================================================================================
+
+Click Species Records to see the table of all species in the active category.
+
+  [Screenshot: docs\screenshots\02-search.png - Figure 2. Searching for "mango" finds Carabao Mango and Mangosteen]
+
+6.1 Search
+----------
+  - Type part of a common name, scientific name or product in the search box (Ctrl+F jumps
+    there).
+  - The list updates after a short pause. Upper or lower case does not matter.
+  - The line on the right shows how many records match, for example "Showing 2 of 22 records".
+  - Press Esc in the search box to clear it.
+  - Any characters can be typed safely; they are always treated as plain text.
+
+6.2 Sort and select
+-------------------
+Click a column header to sort by that column; click again to reverse the order. Click a row (or
+move with the arrow keys) to load that species into the calculator.
+
+6.3 Inspect a record
+--------------------
+Double-click a row, or select it and press Enter, to open the Species Details window with every
+field of the record and the result for the current tree count. Click Use in Calculator or Close.
+
+  [Screenshot: docs\screenshots\08-species-details.png - Figure 3. The Species Details window]
+
+  Column                      | Meaning
+  ----------------------------+------------------------------------------------------------------
+  Species / Scientific Name   | Common (local) name and botanical name.
+  Category / Product          | Fruit-Bearing or Non-Fruit-Bearing; what is sold (fresh fruit,
+                              | timber, latex...).
+  Yield / Tree / Yr, Unit     | Harvest of one mature tree per year (timber: average growth per
+                              | year).
+  Price / Unit                | Estimated farm-gate price in pesos for one unit.
+  Harvest From (Yr)           | Annual species: first harvest year. Rotation species: rotation
+                              | age.
+  Harvest                     | "Annual" (harvested every year) or "Rotation" (cut once).
+
+
+================================================================================================
+7. MULTI-YEAR PROJECTION
+================================================================================================
+
+Click 10-Year Projection to see what the trees produce in each year after planting.
+
+  [Screenshot: docs\screenshots\05-projection.png - Figure 4. 10-year projection for 25 Carabao Mango trees]
+
+  - Projection horizon (years): choose 1 to 30 years (default 10). The section name changes, for
+    example "20-Year Projection".
+  - Summary line: total yield and total gross sales over the horizon.
+  - Chart: gross sales per year. Point at a column to see the exact amount.
+  - Table: Year, Production, Yield, Gross Sales and Cumulative (running total) sales.
+
+  "Production" shows         | Meaning
+  ---------------------------+-------------------------------------------------------------------
+  Not bearing yet            | The trees are still too young to harvest.
+  16.7%, 50%, 100%...        | Share of full production reached that year (yield rises evenly
+                             | until full production).
+  Growing                    | Timber species before rotation age: no income yet.
+  Harvest                    | Timber species at rotation age: the trees are cut and sold.
+
+If the first harvest comes after the last projected year (for example Mahogany, cut at year 25),
+the summary says so and shows the expected harvest value.
+
+
+================================================================================================
+8. SAVING AND LOADING SCENARIOS
+================================================================================================
+
+A scenario is a saved calculation: species, tree count and projection horizon, with a name and
+notes.
+
+8.1 Save a scenario
+-------------------
+  1. Choose the species and tree count.
+  2. Click Save Scenario (or press Ctrl+S).
+  3. Keep or change the suggested name, add notes if you like, and click Save Scenario.
+
+  [Screenshot: docs\screenshots\06-save-scenario.png - Figure 5. Saving a scenario]
+
+8.2 Load or delete a scenario
+-----------------------------
+  1. Click Saved Scenarios. The number in the chip shows how many are saved.
+  2. To load: double-click the scenario, or select it and click Load Selected (or press Enter).
+     The calculator and the projection show the saved values.
+  3. To delete: select it and click Delete Selected (or press Delete), then confirm.
+
+  [Screenshot: docs\screenshots\07-saved-scenarios.png - Figure 6. The Saved Scenarios section]
+
+  | NOTE: Only the inputs are saved. The results are recalculated with the current species
+  | data, so if an administrator updates a price, the scenario shows the new amount.
+
+
+================================================================================================
+9. EXPORTING AND PRINTING
+================================================================================================
+
+9.1 Export to CSV (Excel)
+-------------------------
+  1. Click Export CSV (or press Ctrl+E).
+  2. Choose a folder and file name (a name such as TreeYield_Carabao_Mango_25trees_20261026.csv
+     is suggested) and click Save.
+  3. Open the file in Excel. It contains the species details, the inputs, the results and one
+     row per projected year.
+
+9.2 Print a report
+------------------
+  1. Click Print Report (or press Ctrl+P). A print preview opens.
+  2. Click the printer icon to print. To make a PDF, choose the printer "Microsoft Print to
+     PDF".
+  3. Click Close to return to the program.
+
+  [Screenshot: docs\screenshots\10-print-preview.png - Figure 7. Print preview of the projection report]
+
+
+================================================================================================
+10. ADMINISTRATOR GUIDE
+================================================================================================
+
+Everybody can view and calculate. Only a signed-in administrator can add, edit or delete species
+records.
+
+10.1 Sign in
+------------
+  1. Click Admin Login.
+  2. Type the username and password and click Sign In (or press Enter).
+
+  Default account             | Value
+  ----------------------------+------------------------------------------------------------------
+  Username                    | admin
+  Password                    | Admin@123 (works only until it is changed at the first sign-in)
+
+  [Screenshot: docs\screenshots\11-login-error.png - Figure 8. Sign-in window after a wrong password]
+
+  - A wrong username or password shows "Invalid username or password." For security the program
+    does not say which of the two is wrong.
+  - A warning appears when Caps Lock is on, because passwords are case-sensitive.
+  - After 5 wrong passwords the account is locked for 5 minutes, even for the right password.
+
+10.2 First sign-in: change the default password
+-----------------------------------------------
+The first time you sign in with the default password, the Change Password window appears. Type
+the current password (Admin@123) and a new password twice. Clicking Sign Out cancels and signs
+you out.
+
+  [Screenshot: docs\screenshots\12-change-password.png - Figure 9. The password must be changed at the first sign-in]
+
+Password rules: at least 8 characters, with at least one letter and one number; not the same as
+the username; not the default password. Write the new password down in a safe place.
+
+10.3 The Manage Species Records window
+--------------------------------------
+  [Screenshot: docs\screenshots\13-admin-species.png - Figure 10. Manage Species Records]
+
+  - Add Species (Ctrl+N), Edit, Delete, Refresh (F5).
+  - The filter box at the right narrows the list by name or product.
+  - Audit Log shows the history of sign-ins and changes.
+  - At the bottom: Change Password, Reset Sample Data, Sign Out and Close.
+  - Changes are saved immediately. When you close the window, the main window reloads the
+    records.
+
+10.4 Add a species
+------------------
+  1. Click Add Species.
+  2. Fill in the fields (see the table below). The green Preview line shows what one tree is
+     worth.
+  3. Click Save Species.
+
+If something is missing or not allowed, a message lists every problem and a red icon appears
+next to each field; point at the icon to read the problem again. Nothing is saved until all
+problems are fixed.
+
+  [Screenshot: docs\screenshots\14-editor-validation.png - Figure 11. Required fields are marked when Save is clicked on an empty form]
+
+  Field                         | Rules and tips
+  ------------------------------+----------------------------------------------------------------
+  Common name *                 | Required, up to 100 characters, must be unique (two species
+                                | cannot have the same name).
+  Scientific name               | Optional, up to 150 characters.
+  Category *                    | Fruit-Bearing or Non-Fruit-Bearing.
+  Product *                     | What is sold. Pick from the list or type your own (up to 60
+                                | characters).
+  Harvest type *                | Annual = harvested every year. Rotation = the tree is cut once
+                                | at rotation age (timber).
+  Yield unit *                  | For example kg, pcs or board ft (up to 20 characters).
+  Yield per tree per year *     | More than 0, at most 100,000, up to 2 decimals. For timber: the
+                                | average growth per tree per year.
+  Price per unit (PHP) *        | 0 to 1,000,000, up to 2 decimals.
+  First harvest (year) /        | 0 to 60. For rotation species it is the year the tree is cut
+  Rotation age *                | (at least 1).
+  Full production (year) *      | 0 to 60, not earlier than the first harvest. Not used for
+                                | rotation species.
+  Harvest season, Notes         | Optional, up to 100 and 1,000 characters.
+
+10.5 Edit a species
+-------------------
+Double-click the species (or select it and click Edit or press Enter), change the fields and
+click Save Species. If you click Cancel after changing something, the program asks before
+throwing your changes away.
+
+10.6 Delete a species
+---------------------
+Select the species and click Delete (or press Delete). The confirmation tells you how many saved
+scenarios use the species; they are deleted together with it. The safe answer No is selected by
+default. Deleting cannot be undone.
+
+10.7 Audit log
+--------------
+Click Audit Log to see the 200 most recent actions, newest first: sign-ins, failed sign-ins,
+lockouts, password changes and every added, edited or deleted record, with time and details.
+
+  [Screenshot: docs\screenshots\16-admin-audit-log.png - Figure 12. The audit log]
+
+10.8 Change password, reset sample data, sign out
+-------------------------------------------------
+  - Change Password: type the current password and the new one twice.
+  - Reset Sample Data: deletes all species (including your own) and all saved scenarios, then
+    restores the 22 sample species. User accounts and the audit log are kept. You are asked to
+    confirm first.
+  - Sign Out: ends the administrator session. The program also signs you out automatically after
+    15 minutes without administrator activity.
+
+
+================================================================================================
+11. KEYBOARD SHORTCUTS
+================================================================================================
+
+  Keys                        | Action
+  ----------------------------+------------------------------------------------------------------
+  Ctrl+S                      | Save scenario
+  Ctrl+E                      | Export CSV
+  Ctrl+P                      | Print report
+  Ctrl+F                      | Go to the search box
+  Ctrl+1 / Ctrl+2 / Ctrl+3    | Species Records / Projection / Saved Scenarios
+  F1                          | About window
+  Arrow keys, Page Up/Down,   | Move the tree-count slider (when it has focus)
+  Home/End                    |
+  Enter (in a table)          | Open details / load scenario / edit species
+  Delete (in a table)         | Delete the selected scenario or species (with confirmation)
+  Esc                         | Clear the search box; close a dialog
+  Ctrl+N / F5 (admin window)  | Add species / refresh
+  Tab / Shift+Tab, Space      | Move between controls; press the focused button
+
+
+================================================================================================
+12. HOW THE CALCULATIONS WORK
+================================================================================================
+
+12.1 Yearly yield and gross sales
+---------------------------------
+  Formulas:
+    Annual yield = number of trees x yield per tree per year
+    Estimated gross sales = annual yield x price per unit
+
+All amounts are calculated with exact decimal numbers, so there are no rounding errors. Pesos
+are rounded to the nearest whole peso only when they are displayed.
+
+12.2 Projection for annual species
+----------------------------------
+Young trees produce nothing until the first harvest year. From then on, yield rises in equal
+steps until the year of full production, and stays at full production afterwards:
+
+  Production factor in year y:
+    before the first harvest year: 0%
+    from the first harvest to full production: (y - first + 1) / (full - first + 1)
+    from the full-production year on: 100%
+
+Example - Carabao Mango (first harvest year 5, full production year 10), 25 trees: years 1-4
+give nothing; year 5 gives 1/6 = 16.7% of 7,500 kg = 1,250 kg = PHP 100,000; year 10 gives the
+full 7,500 kg = PHP 600,000. The 10-year total is 26,250 kg = PHP 2,100,000.
+
+12.3 Projection for rotation (timber) species
+---------------------------------------------
+Timber grows every year but is sold only when it is cut at rotation age. The yearly yield
+entered for these species is the mean annual increment (average growth per tree per year).
+
+  Timber harvest:
+    Harvest at rotation age = trees x yearly growth x rotation age
+    Example - 25 Gmelina trees, 15 board ft per year, cut at year 10:
+    25 x 15 x 10 = 3,750 board ft x PHP 35 = PHP 131,250 in year 10
+
+The projection assumes the land is replanted right after a harvest, so the harvest repeats every
+rotation (for Gmelina in years 10, 20 and 30).
+
+12.4 What the program does not include
+--------------------------------------
+Gross sales are before costs (seedlings, fertilizer, labor, transport) and taxes. Losses from
+typhoons, pests or tree deaths are not included. Use the results for planning and comparison,
+not as a guarantee.
+
+
+================================================================================================
+13. THE DATABASE FILE (MICROSOFT ACCESS)
+================================================================================================
+
+All records are stored in one Microsoft Access file:
+
+  Location:
+    Interactive Tree Database\Interactive Tree Database\Database\TreeYieldDb.mdb
+
+13.1 Open it in Microsoft Access
+--------------------------------
+  1. Close the program first, so you do not change the same record in two places at once.
+  2. Double-click TreeYieldDb.mdb, or start Access and choose File > Open > Browse.
+  3. If Access shows a yellow security bar, you can ignore it; it is only needed for macros, and
+     this file has none.
+  4. Double-click a table in the navigation pane on the left to see its records.
+  5. Choose Database Tools > Relationships to see how the tables are connected.
+
+  Table                  | What it holds
+  -----------------------+-----------------------------------------------------------------------
+  Categories             | The two categories: Fruit-Bearing and Non-Fruit-Bearing.
+  TreeSpecies            | One row per species: names, category, product, yield, price, harvest
+                         | type and years.
+  Scenarios              | Saved calculations (species, tree count, horizon, name, notes).
+  Users                  | Administrator accounts. Passwords are stored only as a salted PBKDF2
+                         | hash, never as text.
+  AuditLog               | History of sign-ins and changes.
+  SchemaVersion          | The version of the table layout (used by the program).
+
+13.2 Rules kept by the database
+-------------------------------
+  - Primary keys (AutoNumber ID columns) identify every row.
+  - Relationships with referential integrity: a species must belong to an existing category; a
+    scenario must belong to an existing species. Deleting a species also deletes its scenarios
+    (*Cascade Delete Related Records*).
+  - Validation rules: for example the yield must be greater than 0, prices cannot be negative
+    and full production cannot come before the first harvest. They apply even when a record is
+    typed directly into Access.
+  - Unique indexes: two species cannot have the same common name; two users cannot have the same
+    username.
+
+  | NOTE: Do not change the PasswordHash, PasswordSalt or Iterations columns by hand; the
+  | account would no longer be able to sign in. Do not open the file with Open Exclusive while
+  | the program is running.
+
+13.3 Back up, restore and start fresh
+-------------------------------------
+  - Back up: close the program and copy TreeYieldDb.mdb to a safe place.
+  - Restore: close the program and copy the backup back over TreeYieldDb.mdb.
+  - Start fresh: close the program and delete (or rename) TreeYieldDb.mdb. The next start
+    creates a new file with the 22 sample species and the default admin account.
+  - Keep it small: after many changes, use Database Tools > Compact and Repair Database in
+    Access.
+
+
+================================================================================================
+14. TROUBLESHOOTING AND FREQUENTLY ASKED QUESTIONS
+================================================================================================
+
+  [Screenshot: docs\screenshots\17-database-error.png - Figure 13. Shown when the database cannot be opened]
+
+  Problem                         | What to do
+  --------------------------------+--------------------------------------------------------------
+  "Database Not Available" when   | Usually the file is open in Microsoft Access with Open
+  the program starts              | Exclusive, or a table is open in Design View. Close Access
+                                  | and click Retry. Also check that the folder is not read-only
+                                  | (the program creates a small TreeYieldDb.ldb lock file next
+                                  | to the database). Copy Details copies the technical
+                                  | information for your instructor or IT staff.
+  "The Microsoft.Jet.OLEDB.4.0    | The program was built as 64-bit. In Visual Studio open
+  provider is not registered"     | Project > Properties > Compile > Advanced Compile Options and
+                                  | set Target CPU to x86, then rebuild. (Jet is 32-bit only.)
+  The database file cannot be     | Check the DatabaseFile setting in Interactive Tree
+  found                           | Database.exe.config (next to the .exe), or copy
+                                  | TreeYieldDb.mdb into a Database folder next to the .exe.
+  "This account is locked..."     | Too many wrong passwords. Wait 5 minutes, then sign in with
+                                  | the correct password.
+  Forgot the administrator        | Close the program and open TreeYieldDb.mdb in Access. Choose
+  password                        | Create > Query Design, close the table list, click SQL View
+                                  | and run UPDATE AuditLog SET UserId = Null (Run). Replace the
+                                  | text with DELETE FROM Users and run it too. Close Access and
+                                  | start the program: the default account admin / Admin@123 is
+                                  | created again.
+  Signed out automatically        | The administrator session ends after 15 minutes without
+                                  | administrator activity. Sign in again.
+  "No printer is installed"       | Add a printer, or turn on "Microsoft Print to PDF" in Windows
+                                  | Settings > Printers & scanners.
+  The peso sign looks wrong in    | Open the file in Excel (the file is UTF-8). The money columns
+  the CSV file                    | use "PHP" in the headings.
+  Text is cut off or the window   | Maximize the window. The minimum size is 960 x 640.
+  is too big                      |
+  A figure looks outdated or      | Ask the administrator to edit the species (Section 10.5). The
+  wrong                           | sample figures are estimates.
+  Where are the error logs?       | In the folder %LOCALAPPDATA%\TreeYieldCalculator\logs (one
+                                  | file per day).
+  Start again with fresh sample   | Administrator: Reset Sample Data. Or close the program and
+  data                            | delete TreeYieldDb.mdb; it is re-created at the next start
+                                  | (Section 13.3).
+
+
+================================================================================================
+15. GLOSSARY
+================================================================================================
+
+  Term                        | Meaning
+  ----------------------------+------------------------------------------------------------------
+  Annual species              | A tree harvested every year once it bears (fruit, nuts, beans,
+                              | latex).
+  Rotation species            | A tree cut once when it reaches rotation age (timber, pulpwood).
+  Rotation age                | The age, in years, at which a timber tree is harvested.
+  Mean annual increment       | Average growth of a timber tree per year; harvest = increment x
+                              | rotation age.
+  Board foot (board ft)       | Unit of lumber volume: 1 ft x 1 ft x 1 inch.
+  Farm-gate price             | Price the farmer receives at the farm, before transport and
+                              | trader margins.
+  Full production             | The year from which a tree gives its full yearly harvest.
+  Gross sales                 | Yield x price, before costs.
+  Projection horizon          | Number of years shown in the projection (1-30).
+  Scenario                    | A saved calculation (species, tree count, horizon) with a name.
+  Audit log                   | A record of administrator sign-ins and changes.
+  Microsoft Access database   | A single file that holds tables, relationships and rules; it can
+  (.mdb)                      | be opened in Microsoft Access.
+  Jet OLE DB provider         | The part of Windows the program uses to read and write the .mdb
+                              | file.
+
+
+================================================================================================
+APPENDIX A. SAMPLE SPECIES
+================================================================================================
+
+Records created on the first start (planning estimates; yield per mature tree per year; price
+per unit).
+
+  Species               | Product          | Yield / tree / | Price     | Harvest   | Years
+                        |                  | yr             |           |           |
+  ----------------------+------------------+----------------+-----------+-----------+----------
+  Carabao Mango         | Fresh fruit      | 300 kg         | 80        | Annual    | 5 / 10
+  Coconut               | Mature nuts      | 60 pcs         | 15        | Annual    | 6 / 10
+  Calamansi             | Fresh fruit      | 20 kg          | 60        | Annual    | 2 / 5
+  Rambutan              | Fresh fruit      | 80 kg          | 70        | Annual    | 5 / 9
+  Lanzones              | Fresh fruit      | 60 kg          | 90        | Annual    | 8 / 15
+  Durian                | Fresh fruit      | 120 kg         | 100       | Annual    | 6 / 12
+  Jackfruit (Langka)    | Fresh fruit      | 250 kg         | 25        | Annual    | 3 / 7
+  Avocado               | Fresh fruit      | 100 kg         | 60        | Annual    | 4 / 8
+  Cacao                 | Dried beans      | 1.5 kg         | 180       | Annual    | 3 / 6
+  Robusta Coffee        | Green coffee     | 1 kg           | 120       | Annual    | 3 / 5
+                        | beans            |                |           |           |
+  Guyabano              | Fresh fruit      | 40 kg          | 80        | Annual    | 3 / 6
+  Pomelo (Suha)         | Fresh fruit      | 100 kg         | 50        | Annual    | 5 / 8
+  Santol                | Fresh fruit      | 100 kg         | 30        | Annual    | 5 / 10
+  Pili                  | Nuts in shell    | 30 kg          | 50        | Annual    | 6 / 12
+  Mangosteen            | Fresh fruit      | 50 kg          | 150       | Annual    | 8 / 15
+  Rubber                | Cup lump (latex) | 4 kg           | 35        | Annual    | 6 / 9
+  Mahogany              | Timber           | 8 board ft     | 70        | Rotation  | 25
+  Gmelina (Yemane)      | Timber           | 15 board ft    | 35        | Rotation  | 10
+  Falcata               | Peeler logs /    | 20 board ft    | 25        | Rotation  | 8
+                        | timber           |                |           |           |
+  Teak                  | Timber           | 6 board ft     | 120       | Rotation  | 20
+  Acacia Mangium        | Pulpwood /       | 15 board ft    | 25        | Rotation  | 8
+                        | timber           |                |           |           |
+  Bagras (Rainbow       | Timber /         | 12 board ft    | 30        | Rotation  | 12
+  Eucalyptus)           | pulpwood         |                |           |           |
+
+Years: first harvest / full production for annual species; rotation age for rotation species.
+The first 15 rows are Fruit-Bearing; Rubber and the six timber species are Non-Fruit-Bearing.
+Prices are in pesos per unit.
+
+
+================================================================================================
+APPENDIX B. TEST CASES
+================================================================================================
+
+The file docs\TEST_CASES.txt contains 40 test cases with steps, expected results and a PASS /
+FAIL column for the live demonstration. They cover start-up and calculation (TC-01 to TC-09),
+searching and inspecting records (TC-10 to TC-14), the projection (TC-15 to TC-18), scenarios,
+export and printing (TC-19 to TC-23), the administrator functions and security (TC-24 to TC-36),
+robustness and usability (TC-37 to TC-39), and the data stored in the Access file (TC-40).
+
+In addition, the project TreeYield.Tests runs 94 automated tests, 22 of them on a throw-away
+Access database (expected result: "94 passed, 0 failed").
+

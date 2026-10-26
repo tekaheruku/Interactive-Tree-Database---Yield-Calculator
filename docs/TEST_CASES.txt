@@ -1,0 +1,298 @@
+====================================================================================================
+INTERACTIVE TREE DATABASE & YIELD CALCULATOR - TEST CASE SHEET (LIVE DEMONSTRATION)
+====================================================================================================
+Project : Interactive Tree Database & Yield Calculator (VB.NET Windows Forms + Microsoft Access .mdb)
+Group   : ____________________________________________
+Tester  : ____________________________________________     Date: ____________________
+
+HOW TO USE THIS SHEET
+- Start from a fresh database (see the Before You Start notes below) so the record counts match.
+- Do the steps in order; some cases use data created by earlier cases.
+- Mark each case PASS or FAIL. Write any difference you see under "Notes".
+- TC-25 (account lockout) locks the admin account for 5 minutes, so run it last or plan for the wait.
+
+BEFORE YOU START
+- Fresh database: close the program and Microsoft Access, then delete (or rename, to keep a
+  backup) the file
+      Interactive Tree Database\Interactive Tree Database\Database\TreeYieldDb.mdb
+  The program re-creates it on the next start with 22 sample species and the default admin account.
+- Default administrator: username  admin   password  Admin@123  (must be changed at first login).
+
+AUTOMATED TESTS (run before the demo)
+- Run TreeYield.Tests (in Visual Studio: right-click the project > Debug > Start New Instance, or
+  run Interactive Tree Database\TreeYield.Tests\bin\Debug\TreeYield.Tests.exe).
+- Expected: "94 passed, 0 failed, 0 skipped."  The 94 tests cover the formulas, validation rules,
+  password hashing, CSV escaping, SQL helpers, and 22 database tests on a throw-away .mdb file
+  (SQL injection, validation rules, unique index, cascade delete, login lockout, password change,
+  file opened exclusively by another program, reset data).
+
+----------------------------------------------------------------------------------------------------
+A. START-UP AND CALCULATOR
+----------------------------------------------------------------------------------------------------
+TC-01  First run creates the database
+       Steps   : Start the program with no TreeYieldDb.mdb file (see Before You Start).
+       Expected: Status bar shows "Opening the database..." then "Ready" and "Database: TreeYieldDb.mdb".
+                 The file Database\TreeYieldDb.mdb now exists in the project folder. The records table
+                 shows "Showing 22 of 22 records". Carabao Mango is selected, tree count is 25.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-02  Calculation matches the design mock-up
+       Steps   : Species = Carabao Mango, Tree Count = 25.
+       Expected: Active Species "Carabao Mango"; Annual Yield "7,500 kg";
+                 Estimated Gross Sales "PHP 600,000" (shown with the peso sign).
+                 (25 trees x 300 kg = 7,500 kg; 7,500 kg x PHP 80 = PHP 600,000)
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-03  Filter: Fruit-Bearing
+       Steps   : Click the "Fruit-Bearing" chip.
+       Expected: Chip turns blue. "Showing 15 of 22 records". The drop-down lists only fruit-bearing
+                 species. The selected species stays if it is fruit-bearing.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-04  Filter: Non-Fruit-Bearing
+       Steps   : Click "Non-Fruit-Bearing".
+       Expected: "Showing 7 of 22 records" (6 timber species + Rubber). For a timber species the
+                 yield card says "Annualized; whole stand is cut at year N".
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-05  Filter: All Species
+       Steps   : Click "All Species".
+       Expected: "Showing 22 of 22 records".
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-06  Tree-count slider (mouse and keyboard)
+       Steps   : Drag the slider. Then click it and press Right arrow, Left arrow, Page Up, Home, End.
+       Expected: The number box and the cards update right away. Right/Left = +1/-1, Page Up = +10,
+                 Home = 1, End = 1,000.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-07  Tree-count limits (invalid input)
+       Steps   : In the number box type 0 and press Enter. Then type 150000 and press Enter.
+                 Try typing letters.
+       Expected: 0 becomes 1. 150000 becomes 100,000 (the maximum). Letters cannot be typed.
+                 The program never crashes.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-08  Very large numbers
+       Steps   : Carabao Mango, type 100000 trees, press Enter.
+       Expected: Annual Yield "30,000,000 kg"; Gross Sales "PHP 2,400,000,000". The numbers fit
+                 inside the cards (the font shrinks if needed).
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-09  Decimal yield
+       Steps   : Species = Cacao, Tree Count = 25.
+       Expected: Annual Yield "37.5 kg"; Gross Sales "PHP 6,750" (25 x 1.5 kg x PHP 180).
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+----------------------------------------------------------------------------------------------------
+B. SPECIES RECORDS (SEARCH AND INSPECT)
+----------------------------------------------------------------------------------------------------
+TC-10  Search by part of a name
+       Steps   : Species Records section; type  mango  in the search box.
+       Expected: After a short pause: "Showing 2 of 22 records" (Carabao Mango, Mangosteen).
+                 Case does not matter.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-11  SQL injection attempt is harmless
+       Steps   : Type   ' OR 1=1 --   in the search box. Then press Esc.
+       Expected: "No species match ..." and "Showing 0 of 22 records". No error message.
+                 After Esc the search box is cleared and all 22 records are back.
+       Why     : The text is sent as a SQL parameter, so it is only compared as text.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-12  Wildcard characters are literal
+       Steps   : Type  %  in the search box.
+       Expected: 0 records (no name contains a % sign). "%" is not treated as "match everything".
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-13  Sort and select
+       Steps   : Click the "Price / Unit" column header twice. Click any row.
+       Expected: Rows sort by price ascending, then descending. Clicking a row loads that species
+                 into the calculator.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-14  Inspect a record
+       Steps   : Double-click Carabao Mango (or select it and press Enter).
+       Expected: "Carabao Mango - Species Details" window with scientific name, category, yield,
+                 price, harvest type, first harvest (year 5), full production (year 10), season,
+                 "For 25 trees: 7,500 kg = PHP 600,000 per year", notes. Close returns to the main window.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+----------------------------------------------------------------------------------------------------
+C. PROJECTION
+----------------------------------------------------------------------------------------------------
+TC-15  10-year projection (annual species)
+       Steps   : Carabao Mango, 25 trees, open "10-Year Projection".
+       Expected: Years 1-4 "Not bearing yet" (PHP 0). Year 5 16.7% = 1,250 kg = PHP 100,000.
+                 Year 10 100% = 7,500 kg = PHP 600,000. Summary "10-year total: 26,250 kg - PHP 2,100,000".
+                 Hovering a column shows a tooltip with the year's value.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-16  Timber harvest inside the horizon
+       Steps   : Gmelina (Yemane), 25 trees, 10 years.
+       Expected: Years 1-9 "Growing" (PHP 0). Year 10 "Harvest" = 3,750 board ft = PHP 131,250.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-17  Timber harvest beyond the horizon
+       Steps   : Mahogany, 25 trees, 10 years.
+       Expected: Summary "No harvest within 10 years: the first harvest is expected in year 25
+                 (about PHP 350,000)." All yearly values are PHP 0.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-18  Change the horizon
+       Steps   : Set "Projection horizon (years)" to 20, then 30.
+       Expected: Chart and table show 20 / 30 years. The section chip reads "20-Year Projection".
+                 The value cannot go above 30 or below 1.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+----------------------------------------------------------------------------------------------------
+D. SAVED SCENARIOS, EXPORT, PRINT
+----------------------------------------------------------------------------------------------------
+TC-19  Save a scenario
+       Steps   : Carabao Mango, 25 trees. Click "Save Scenario" (or Ctrl+S). Keep the suggested name. Save.
+       Expected: Status bar: Scenario "Carabao Mango - 25 trees" saved. The chip reads "Saved Scenarios (1)".
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-20  Scenario name is required
+       Steps   : Save Scenario, clear the name, click Save Scenario.
+       Expected: Red error icon next to the name ("Enter a name for the scenario."). Nothing is saved.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-21  Load a scenario
+       Steps   : Change species and tree count. Saved Scenarios > double-click the scenario.
+       Expected: Calculator returns to Carabao Mango, 25 trees; the projection section opens.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-22  Export CSV
+       Steps   : Click "Export CSV" (Ctrl+E), save the file, open it in Excel.
+       Expected: Report with species details, inputs, results and one row per year; totals
+                 26,250 kg and 2,100,000. Numbers are real numbers in Excel.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-23  Print report
+       Steps   : Click "Print Report" (Ctrl+P).
+       Expected: Print preview with a one-page report: species, results, 10-year table,
+                 disclaimer, page number. Can print or "Microsoft Print to PDF".
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+----------------------------------------------------------------------------------------------------
+E. ADMINISTRATOR (SECURITY AND RECORD MANAGEMENT)
+----------------------------------------------------------------------------------------------------
+TC-24  Wrong password
+       Steps   : Admin Login; username admin, password wrong123; Sign In.
+       Expected: "Invalid username or password." (does not say which one is wrong). Password box cleared.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-26  First login forces a password change
+       Steps   : Sign in with admin / Admin@123.
+       Expected: "Change Password" window appears. New password "short" -> "must be at least 8
+                 characters". Different confirmation -> "do not match". Admin@123 as the new
+                 password -> rejected. A valid password (e.g. Narra2026) -> "Your password was changed".
+                 Then "Manage Species Records" opens. Status bar: "Signed in as admin".
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-27  Add species: required fields
+       Steps   : Add Species > click "Save Species" without typing anything.
+       Expected: Message lists "Common name is required." and "Yield per tree must be greater than
+                 zero."; red icons appear next to both fields; nothing is saved.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-28  Add species: impossible years
+       Steps   : Harvest type Annual, First harvest 8, Full production 5, Save.
+       Expected: "Full production cannot come before the first harvest."
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-29  Duplicate name
+       Steps   : Add Species with Common name "Carabao Mango", valid yield, Save.
+       Expected: Red icon on the name: "Another species already uses this name." (blocked by the
+                 unique index on TreeSpecies.CommonName in the Access file).
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-30  Add a valid species
+       Steps   : Common name Marang, Fruit-Bearing, Fresh fruit, Annual, kg, yield 80, price 45,
+                 first 3, full 6. Watch the preview line. Save Species. Close the admin window.
+       Expected: Preview "1 tree = 80 kg per year = PHP 3,600 per year...". The list shows 23 records.
+                 In the main window Marang appears in the drop-down and the records table.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-31  Edit a species updates the calculator
+       Steps   : Manage Records > double-click Carabao Mango > Price 90 > Save. Close admin.
+       Expected: Main window, 25 trees: Gross Sales PHP 675,000. The saved scenario now shows
+                 PHP 675,000 (recalculated with the new price).
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-32  Unsaved changes warning
+       Steps   : Edit any species, change a field, click Cancel.
+       Expected: "Discard the changes you made to this species?" with No as the default answer.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-33  Delete a species that has saved scenarios
+       Steps   : Select Carabao Mango > Delete.
+       Expected: Confirmation says 1 saved scenario will also be deleted (No is the default).
+                 After Yes the species and its scenario are gone (the Access relationship has
+                 "Cascade Delete Related Records" turned on).
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-34  Audit log
+       Steps   : Click "Audit Log".
+       Expected: Newest first: DELETE, UPDATE, CREATE, PASSWORD_CHANGE, LOGIN, LOGIN_FAILED, with
+                 time, user and details (for example "Deleted species 'Carabao Mango' and 1 saved scenario(s).").
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-35  Reset sample data
+       Steps   : Reset Sample Data > Yes.
+       Expected: 22 species again (Carabao Mango back, Marang gone); saved scenarios removed;
+                 audit log keeps its history and adds RESET_DATA.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-36  Sign out
+       Steps   : Sign Out.
+       Expected: Admin window closes; the button reads "Admin Login" again; status bar "Guest (read-only)".
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-25  Account lockout (run near the end)
+       Steps   : Admin Login; enter a wrong password 5 times; then the correct password.
+       Expected: 5th attempt: "This account is locked because of too many failed sign-in attempts.
+                 Try again in 5 minutes." The correct password is also refused while locked.
+                 Audit log shows LOCKOUT. After 5 minutes the correct password works again.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+----------------------------------------------------------------------------------------------------
+F. ROBUSTNESS AND USABILITY
+----------------------------------------------------------------------------------------------------
+TC-37  Database not available (error recovery)
+       Steps   : Close the program. Start Microsoft Access, choose File > Open > Browse, select
+                 Database\TreeYieldDb.mdb, click the arrow next to Open and choose "Open Exclusive".
+                 Now start the program. Then close Access and click Retry.
+       Expected: "Database Not Available" window: "The database file is in use by another
+                 program...", how-to-fix steps, the file path, Retry / Copy Details / Exit. No crash.
+                 After Access is closed, Retry opens the main window normally.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-40  The data is stored in the Access database
+       Steps   : Save a scenario in the program (TC-19). Close the program. Double-click
+                 Database\TreeYieldDb.mdb to open it in Microsoft Access. Open the tables
+                 TreeSpecies, Scenarios, Users and AuditLog; open Database Tools > Relationships.
+       Expected: 22 species, the saved scenario, the admin user (PasswordHash is unreadable text,
+                 never the password itself) and the audit entries are all there. The Relationships
+                 window shows Categories - TreeSpecies - Scenarios and Users - AuditLog.
+                 Close Access before starting the program again.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-38  Keyboard-only use and shortcuts
+       Steps   : Use Tab / Shift+Tab, Space/Enter, arrow keys only. Try Ctrl+1, Ctrl+2, Ctrl+3,
+                 Ctrl+F, Ctrl+S, Ctrl+E, Ctrl+P, F1.
+       Expected: Every control can be reached and shows a visible focus indicator. Shortcuts switch
+                 sections, focus the search box, save, export, print and open About.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+TC-39  Window resizing
+       Steps   : Resize the window smaller and larger; maximize it.
+       Expected: Layout stretches; cards stay in one row; the records table grows and shrinks.
+                 The window cannot be made smaller than its minimum size.
+       Result  : [ ] PASS  [ ] FAIL   Notes: ____________________________________________
+
+----------------------------------------------------------------------------------------------------
+SUMMARY
+----------------------------------------------------------------------------------------------------
+Passed: ______ / 40        Failed: ______        Signature: ______________________

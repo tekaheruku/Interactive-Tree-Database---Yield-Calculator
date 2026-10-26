@@ -6,16 +6,21 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{15DD6875-2DD5-4F61-A169-F32952B499E8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Interactive_Tree_Database.My.MyApplication</StartupObject>
-    <RootNamespace>Interactive_Tree_Database</RootNamespace>
+    <StartupObject>TreeYield.WinForms.My.MyApplication</StartupObject>
+    <RootNamespace>TreeYield.WinForms</RootNamespace>
     <AssemblyName>Interactive Tree Database</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <LangVersion>14</LangVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <!--
+    PlatformTarget is x86 because the Microsoft Jet 4.0 OLE DB provider, which reads
+    and writes the Access .mdb file, only exists as a 32-bit component.
+  -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -25,7 +30,7 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
@@ -41,17 +46,25 @@
     <OptionCompare>Binary</OptionCompare>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionStrict>Off</OptionStrict>
+    <OptionStrict>On</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -72,12 +85,73 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.vb">
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="AppServices.vb" />
+    <Compile Include="Controls\ChipButton.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FlatSlider.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\RoundedPanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\StatCard.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="Forms\AboutForm.Designer.vb">
+      <DependentUpon>AboutForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdminForm.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminForm.Designer.vb">
+      <DependentUpon>AdminForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChangePasswordForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangePasswordForm.Designer.vb">
+      <DependentUpon>ChangePasswordForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.vb">
+      <DependentUpon>LoginForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SaveScenarioForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SaveScenarioForm.Designer.vb">
+      <DependentUpon>SaveScenarioForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SpeciesDetailsForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SpeciesDetailsForm.Designer.vb">
+      <DependentUpon>SpeciesDetailsForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SpeciesEditorForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SpeciesEditorForm.Designer.vb">
+      <DependentUpon>SpeciesEditorForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StartupErrorForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StartupErrorForm.Designer.vb">
+      <DependentUpon>StartupErrorForm.vb</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -94,10 +168,41 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\AdminSession.vb" />
+    <Compile Include="UI\DrawingHelpers.vb" />
+    <Compile Include="UI\ErrorReporter.vb" />
+    <Compile Include="UI\GridStyler.vb" />
+    <Compile Include="UI\NativeMethods.vb" />
+    <Compile Include="UI\ReportPrinter.vb" />
+    <Compile Include="UI\Theme.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminForm.resx">
+      <DependentUpon>AdminForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SaveScenarioForm.resx">
+      <DependentUpon>SaveScenarioForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SpeciesDetailsForm.resx">
+      <DependentUpon>SpeciesDetailsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SpeciesEditorForm.resx">
+      <DependentUpon>SpeciesEditorForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StartupErrorForm.resx">
+      <DependentUpon>StartupErrorForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -117,13 +222,21 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="app.manifest" />
+    <!--
+      The Access database. It is NOT copied to bin\Debug: the program finds this copy
+      in the project folder, so Visual Studio and Microsoft Access use the same file.
+    -->
+    <None Include="Database\TreeYieldDb.mdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TreeYield.Core\TreeYield.Core.vbproj">
+      <Project>{4B7E2C91-5D3A-4F6B-9C1E-7A2D8E3F4B05}</Project>
+      <Name>TreeYield.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
