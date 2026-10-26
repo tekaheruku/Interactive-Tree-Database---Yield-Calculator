@@ -14,4 +14,7 @@ Public Class AboutForm
                        " The sample species and prices were prepared for this school project; administrators can update them at any time."
     End Sub
 
+    Private Sub lblCredits_Click(sender As Object, e As EventArgs) Handles lblCredits.Click
+
+    End Sub
 End Class

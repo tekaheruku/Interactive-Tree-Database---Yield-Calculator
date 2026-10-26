@@ -22,6 +22,7 @@ Partial Class AboutForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AboutForm))
         Me.layoutMain = New System.Windows.Forms.TableLayoutPanel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.lblVersion = New System.Windows.Forms.Label()
@@ -37,7 +38,7 @@ Partial Class AboutForm
         Me.flowButtons.SuspendLayout()
         Me.SuspendLayout()
         '
-        ' layoutMain
+        'layoutMain
         '
         Me.layoutMain.ColumnCount = 1
         Me.layoutMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -68,7 +69,7 @@ Partial Class AboutForm
         Me.layoutMain.Size = New System.Drawing.Size(584, 581)
         Me.layoutMain.TabIndex = 0
         '
-        ' lblTitle
+        'lblTitle
         '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -76,121 +77,126 @@ Partial Class AboutForm
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(0)
         Me.lblTitle.MaximumSize = New System.Drawing.Size(528, 0)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(468, 30)
+        Me.lblTitle.Size = New System.Drawing.Size(436, 30)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Interactive Tree Database & Yield Calculator"
         Me.lblTitle.UseMnemonic = False
         '
-        ' lblVersion
+        'lblVersion
         '
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.ForeColor = System.Drawing.Color.FromArgb(95, 99, 104)
-        Me.lblVersion.Location = New System.Drawing.Point(28, 54)
+        Me.lblVersion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(95, Byte), Integer), CType(CType(99, Byte), Integer), CType(CType(104, Byte), Integer))
+        Me.lblVersion.Location = New System.Drawing.Point(29, 54)
         Me.lblVersion.Margin = New System.Windows.Forms.Padding(1, 2, 0, 14)
         Me.lblVersion.Name = "lblVersion"
-        Me.lblVersion.Size = New System.Drawing.Size(80, 17)
+        Me.lblVersion.Size = New System.Drawing.Size(72, 17)
         Me.lblVersion.TabIndex = 1
         Me.lblVersion.Text = "Version 1.0"
         '
-        ' lblDescription
+        'lblDescription
         '
         Me.lblDescription.AutoSize = True
         Me.lblDescription.Location = New System.Drawing.Point(28, 85)
         Me.lblDescription.Margin = New System.Windows.Forms.Padding(0, 0, 0, 14)
         Me.lblDescription.MaximumSize = New System.Drawing.Size(528, 0)
         Me.lblDescription.Name = "lblDescription"
-        Me.lblDescription.Size = New System.Drawing.Size(520, 51)
+        Me.lblDescription.Size = New System.Drawing.Size(517, 68)
         Me.lblDescription.TabIndex = 2
-        Me.lblDescription.Text = "An interactive view to inspect tree species records, filter them by type, and calculate projected harvest yields and estimated gross sales in Philippine pesos. Built with Visual Basic .NET Windows Forms (.NET Framework 4.5.2) and a Microsoft Access database (.mdb)."
+        Me.lblDescription.Text = resources.GetString("lblDescription.Text")
         '
-        ' lblDataTitle
+        'lblDataTitle
         '
         Me.lblDataTitle.AutoSize = True
         Me.lblDataTitle.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDataTitle.Location = New System.Drawing.Point(28, 150)
+        Me.lblDataTitle.Location = New System.Drawing.Point(28, 167)
         Me.lblDataTitle.Margin = New System.Windows.Forms.Padding(0, 0, 0, 4)
         Me.lblDataTitle.Name = "lblDataTitle"
-        Me.lblDataTitle.Size = New System.Drawing.Size(106, 19)
+        Me.lblDataTitle.Size = New System.Drawing.Size(102, 19)
         Me.lblDataTitle.TabIndex = 3
         Me.lblDataTitle.Text = "About the data"
         '
-        ' lblData
+        'lblData
         '
         Me.lblData.AutoSize = True
-        Me.lblData.ForeColor = System.Drawing.Color.FromArgb(95, 99, 104)
-        Me.lblData.Location = New System.Drawing.Point(28, 173)
+        Me.lblData.ForeColor = System.Drawing.Color.FromArgb(CType(CType(95, Byte), Integer), CType(CType(99, Byte), Integer), CType(CType(104, Byte), Integer))
+        Me.lblData.Location = New System.Drawing.Point(28, 190)
         Me.lblData.Margin = New System.Windows.Forms.Padding(0, 0, 0, 14)
         Me.lblData.MaximumSize = New System.Drawing.Size(528, 0)
         Me.lblData.Name = "lblData"
-        Me.lblData.Size = New System.Drawing.Size(100, 17)
+        Me.lblData.Size = New System.Drawing.Size(68, 17)
         Me.lblData.TabIndex = 4
         Me.lblData.Text = "Disclaimer"
         '
-        ' lblShortcutsTitle
+        'lblShortcutsTitle
         '
         Me.lblShortcutsTitle.AutoSize = True
         Me.lblShortcutsTitle.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblShortcutsTitle.Location = New System.Drawing.Point(28, 204)
+        Me.lblShortcutsTitle.Location = New System.Drawing.Point(28, 221)
         Me.lblShortcutsTitle.Margin = New System.Windows.Forms.Padding(0, 0, 0, 4)
         Me.lblShortcutsTitle.Name = "lblShortcutsTitle"
         Me.lblShortcutsTitle.Size = New System.Drawing.Size(130, 19)
         Me.lblShortcutsTitle.TabIndex = 5
         Me.lblShortcutsTitle.Text = "Keyboard shortcuts"
         '
-        ' lblShortcuts
+        'lblShortcuts
         '
         Me.lblShortcuts.AutoSize = True
-        Me.lblShortcuts.ForeColor = System.Drawing.Color.FromArgb(95, 99, 104)
-        Me.lblShortcuts.Location = New System.Drawing.Point(28, 227)
+        Me.lblShortcuts.ForeColor = System.Drawing.Color.FromArgb(CType(CType(95, Byte), Integer), CType(CType(99, Byte), Integer), CType(CType(104, Byte), Integer))
+        Me.lblShortcuts.Location = New System.Drawing.Point(28, 244)
         Me.lblShortcuts.Margin = New System.Windows.Forms.Padding(0, 0, 0, 14)
         Me.lblShortcuts.MaximumSize = New System.Drawing.Size(528, 0)
         Me.lblShortcuts.Name = "lblShortcuts"
-        Me.lblShortcuts.Size = New System.Drawing.Size(500, 119)
+        Me.lblShortcuts.Size = New System.Drawing.Size(398, 119)
         Me.lblShortcuts.TabIndex = 6
-        Me.lblShortcuts.Text = "Ctrl+S  Save scenario" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ctrl+E  Export CSV" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ctrl+P  Print report" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ctrl+F  Search species records" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ctrl+1 / Ctrl+2 / Ctrl+3  Records / Projection / Saved scenarios" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Arrow keys, Page Up/Down, Home/End  Move the tree count slider" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "F1  This window"
+        Me.lblShortcuts.Text = resources.GetString("lblShortcuts.Text")
         Me.lblShortcuts.UseMnemonic = False
         '
-        ' lblCredits
+        'lblCredits
         '
         Me.lblCredits.AutoSize = True
-        Me.lblCredits.Location = New System.Drawing.Point(28, 360)
+        Me.lblCredits.Location = New System.Drawing.Point(28, 377)
         Me.lblCredits.Margin = New System.Windows.Forms.Padding(0)
         Me.lblCredits.MaximumSize = New System.Drawing.Size(528, 0)
         Me.lblCredits.Name = "lblCredits"
-        Me.lblCredits.Size = New System.Drawing.Size(420, 34)
+        Me.lblCredits.Size = New System.Drawing.Size(409, 34)
         Me.lblCredits.TabIndex = 7
-        Me.lblCredits.Text = "BSCS Final Project - Human-Computer Interaction" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Developed by: [Group Name / Members]"
+        Me.lblCredits.Text = "BSCS Final Project - Human-Computer Interaction" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Developed by: [Gian Kyle Villanu" &
+    "eva / Mikhail Giangan / Dave Valdez]"
         Me.lblCredits.UseMnemonic = False
         '
-        ' flowButtons
+        'flowButtons
         '
         Me.flowButtons.AutoSize = True
         Me.flowButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flowButtons.Controls.Add(Me.btnOk)
         Me.flowButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flowButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flowButtons.Location = New System.Drawing.Point(28, 527)
+        Me.flowButtons.Location = New System.Drawing.Point(28, 530)
         Me.flowButtons.Margin = New System.Windows.Forms.Padding(0)
         Me.flowButtons.Name = "flowButtons"
-        Me.flowButtons.Size = New System.Drawing.Size(528, 36)
+        Me.flowButtons.Size = New System.Drawing.Size(528, 33)
         Me.flowButtons.TabIndex = 8
         Me.flowButtons.WrapContents = False
         '
-        ' btnOk
+        'btnOk
         '
         Me.btnOk.AutoSize = True
         Me.btnOk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnOk.ChipStyle = TreeYield.WinForms.ChipStyle.Primary
+        Me.btnOk.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnOk.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOk.Location = New System.Drawing.Point(460, 0)
+        Me.btnOk.Location = New System.Drawing.Point(466, 0)
         Me.btnOk.Margin = New System.Windows.Forms.Padding(8, 0, 0, 0)
         Me.btnOk.Name = "btnOk"
-        Me.btnOk.Size = New System.Drawing.Size(68, 36)
+        Me.btnOk.Padding = New System.Windows.Forms.Padding(18, 0, 18, 0)
+        Me.btnOk.Size = New System.Drawing.Size(62, 33)
         Me.btnOk.TabIndex = 0
         Me.btnOk.Text = "OK"
+        Me.btnOk.UseVisualStyleBackColor = False
         '
-        ' AboutForm
+        'AboutForm
         '
         Me.AcceptButton = Me.btnOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -200,7 +206,7 @@ Partial Class AboutForm
         Me.ClientSize = New System.Drawing.Size(584, 581)
         Me.Controls.Add(Me.layoutMain)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.FromArgb(31, 31, 31)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
